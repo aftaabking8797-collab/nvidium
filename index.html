@@ -1,0 +1,3281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"> <meta name="robots" content="index, follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Discover how Nvidium can improve Minecraft rendering, frame stability, and visual performance for compatible NVIDIA hardware.">
+
+<title>Nvidium: A Smarter Way to Improve Minecraft Performance</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+:root{
+    --dark:#07111f;
+    --dark2:#0c1c31;
+    --blue:#3b82f6;
+    --cyan:#22d3ee;
+    --purple:#8b5cf6;
+    --green:#22c55e;
+    --white:#ffffff;
+    --light:#f4f8fc;
+    --text:#172033;
+    --muted:#667085;
+    --border:#e4eaf2;
+    --shadow:0 18px 50px rgba(7,17,31,.12);
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--light);
+    color:var(--text);
+    line-height:1.8;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.container{
+    width:min(1140px,92%);
+    margin:auto;
+}
+
+/* ================= HEADER ================= */
+
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:rgba(7,17,31,.94);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.navbar{
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:#fff;
+    font-size:22px;
+    font-weight:800;
+    letter-spacing:.3px;
+}
+
+.logo-icon{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--blue),var(--purple),var(--cyan));
+    box-shadow:0 8px 25px rgba(59,130,246,.35);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:28px;
+}
+
+.nav-links a{
+    color:#dce7f7;
+    font-size:14px;
+    font-weight:600;
+    position:relative;
+    transition:.3s;
+}
+
+.nav-links a:after{
+    content:"";
+    position:absolute;
+    width:0;
+    height:2px;
+    left:0;
+    bottom:-7px;
+    background:linear-gradient(90deg,var(--cyan),var(--purple));
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-links a:hover:after{
+    width:100%;
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:transparent;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:95px 0 85px;
+    background:
+        radial-gradient(circle at 10% 20%,rgba(34,211,238,.18),transparent 30%),
+        radial-gradient(circle at 90% 10%,rgba(139,92,246,.22),transparent 30%),
+        linear-gradient(135deg,#06101e,#0c1d34 55%,#101a35);
+    color:#fff;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.06);
+    right:-150px;
+    top:-150px;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    align-items:center;
+    gap:55px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 14px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.06);
+    border-radius:30px;
+    font-size:13px;
+    color:#cdeaff;
+    margin-bottom:22px;
+}
+
+.badge span{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 15px var(--cyan);
+}
+
+.hero h1{
+    font-size:clamp(38px,5vw,66px);
+    line-height:1.1;
+    letter-spacing:-1.8px;
+    margin-bottom:22px;
+}
+
+.hero h1 span{
+    background:linear-gradient(90deg,#fff,var(--cyan),#a78bfa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-text{
+    color:#b9c8dc;
+    font-size:17px;
+    max-width:650px;
+    margin-bottom:32px;
+}
+
+.cta-area{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:155px;
+    padding:14px 23px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:15px;
+    transition:.35s;
+}
+
+.cta-download{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;
+    box-shadow:0 12px 30px rgba(59,130,246,.3);
+}
+
+.cta-download:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 18px 38px rgba(59,130,246,.48);
+}
+
+.cta-read{
+    border:1px solid rgba(255,255,255,.2);
+    color:#fff;
+    background:rgba(255,255,255,.06);
+}
+
+.cta-read:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.12);
+    border-color:rgba(34,211,238,.6);
+}
+
+/* ================= HERO VISUAL ================= */
+
+.hero-visual{
+    position:relative;
+}
+
+.visual-card{
+    min-height:380px;
+    border-radius:28px;
+    padding:18px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 30px 70px rgba(0,0,0,.28);
+    backdrop-filter:blur(14px);
+}
+
+.banner-window{
+    position:relative;
+    height:340px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#101c2e;
+}
+
+.banner-slide{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity .8s ease;
+    display:flex;
+    align-items:flex-end;
+    padding:30px;
+}
+
+.banner-slide.active{
+    opacity:1;
+}
+
+.slide-one{
+    background:
+        radial-gradient(circle at 70% 25%,rgba(34,211,238,.7),transparent 17%),
+        linear-gradient(135deg,#0a1730,#145a78 55%,#111b39);
+}
+
+.slide-two{
+    background:
+        radial-gradient(circle at 30% 30%,rgba(139,92,246,.8),transparent 18%),
+        linear-gradient(135deg,#171332,#243a75 55%,#071b2d);
+}
+
+.slide-three{
+    background:
+        radial-gradient(circle at 75% 65%,rgba(34,197,94,.6),transparent 18%),
+        linear-gradient(135deg,#071d22,#11485a 55%,#101b35);
+}
+
+.slide-content{
+    position:relative;
+    z-index:2;
+}
+
+.slide-content small{
+    color:#a9eaff;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.slide-content h3{
+    color:#fff;
+    font-size:28px;
+    margin-top:5px;
+}
+
+/* Decorative Minecraft-style blocks */
+
+.pixel-grid{
+    position:absolute;
+    inset:0;
+    opacity:.18;
+    background-image:
+        linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);
+    background-size:32px 32px;
+}
+
+.cube{
+    position:absolute;
+    width:85px;
+    height:85px;
+    border-radius:12px;
+    transform:rotate(12deg);
+    background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(255,255,255,.03));
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+.cube-one{
+    right:55px;
+    top:55px;
+}
+
+.cube-two{
+    right:145px;
+    top:135px;
+    width:60px;
+    height:60px;
+}
+
+/* ================= INTRO ================= */
+
+.intro{
+    padding:75px 0 35px;
+}
+
+.section-label{
+    display:inline-block;
+    color:var(--blue);
+    font-size:13px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    margin-bottom:10px;
+}
+
+.section-title{
+    font-size:36px;
+    line-height:1.25;
+    margin-bottom:18px;
+    color:var(--dark);
+}
+
+.section-title a{
+    transition:.3s;
+}
+
+.section-title a:hover{
+    color:var(--blue);
+}
+
+.intro p{
+    color:var(--muted);
+    font-size:16px;
+    margin-bottom:17px;
+}
+
+/* ================= CONTENT TABLE ================= */
+
+.toc-box{
+    margin:45px 0;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.toc-header{
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    background:linear-gradient(135deg,#f9fbff,#eef6ff);
+}
+
+.toc-header h2{
+    font-size:20px;
+    color:var(--dark);
+}
+
+.toc-arrow{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    display:grid;
+    place-items:center;
+    background:#e4efff;
+    color:var(--blue);
+    transition:.3s;
+}
+
+.toc-content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .5s ease;
+}
+
+.toc-content.open{
+    max-height:600px;
+}
+
+.toc-list{
+    padding:20px 28px 25px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px 30px;
+}
+
+.toc-list a{
+    color:#536175;
+    font-weight:600;
+    padding:8px 0;
+    border-bottom:1px solid #edf0f5;
+    transition:.3s;
+}
+
+.toc-list a:hover{
+    color:var(--blue);
+    padding-left:6px;
+}
+
+/* ================= CONTENT CARD ================= */
+
+.content-area{
+    padding:20px 0 80px;
+}
+
+.article-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:42px;
+    box-shadow:var(--shadow);
+}
+
+.article-card h2{
+    color:var(--dark);
+    font-size:30px;
+    margin:38px 0 15px;
+    line-height:1.3;
+    scroll-margin-top:100px;
+}
+
+.article-card h3{
+    color:var(--dark2);
+    font-size:23px;
+    margin:28px 0 12px;
+}
+
+.article-card h2 a,
+.article-card h3 a{
+    transition:.3s;
+}
+
+.article-card h2 a:hover,
+.article-card h3 a:hover{
+    color:var(--blue);
+}
+
+.article-card p{
+    color:#586579;
+    margin-bottom:17px;
+}
+
+.highlight{
+    margin:28px 0;
+    padding:22px 25px;
+    border-left:4px solid var(--cyan);
+    background:linear-gradient(90deg,#effaff,#f8fbff);
+    border-radius:0 14px 14px 0;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:850px){
+
+    .nav-links{
+        position:absolute;
+        top:76px;
+        left:0;
+        right:0;
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:25px 5%;
+        background:#07111f;
+        border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        padding:65px 0;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .hero h1{
+        font-size:43px;
+    }
+
+    .article-card{
+        padding:27px;
+    }
+
+    .toc-list{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:520px){
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .hero-text{
+        font-size:15px;
+    }
+
+    .cta{
+        width:100%;
+    }
+
+    .visual-card{
+        min-height:300px;
+    }
+
+    .banner-window{
+        height:270px;
+    }
+
+    .section-title{
+        font-size:29px;
+    }
+
+    .article-card h2{
+        font-size:26px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="site-header">
+    <div class="container navbar">
+
+        <a href="#home" class="logo">
+            <span class="logo-icon">N</span>
+            <span>Nvidium Guide</span>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#performance">Performance</a>
+            <a href="#hardware">Hardware</a>
+            <a href="#testing">Testing</a>
+            <a href="#pros-cons">Pros & Cons</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open Menu">☰</button>
+
+    </div>
+</header>
+
+
+<!-- ================= PREMIUM HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="container hero-grid">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span></span>
+                Minecraft Performance Guide
+            </div>
+
+            <h1>
+                Nvidium: A <span>Smarter Way</span> to Improve Minecraft Performance
+            </h1>
+
+            <p class="hero-text">
+                Discover a rendering-focused approach to Minecraft performance,
+                frame stability, visual efficiency, and smoother gameplay on
+                compatible NVIDIA hardware.
+            </p>
+
+            <div class="cta-area">
+
+                <!-- ONLY EXTERNAL LINK ON THE WEBSITE -->
+                <a class="cta cta-download"
+                   href="https://nvidium.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Download Now
+                </a>
+
+                <a class="cta cta-read" href="#about">
+                    Read More
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CHANGING BANNER ================= -->
+
+        <div class="hero-visual">
+
+            <div class="visual-card">
+
+                <div class="banner-window">
+
+                    <div class="banner-slide slide-one active">
+                        <div class="pixel-grid"></div>
+                        <div class="cube cube-one"></div>
+                        <div class="cube cube-two"></div>
+
+                        <div class="slide-content">
+                            <small>Rendering Optimization</small>
+                            <h3>Smoother Minecraft Worlds</h3>
+                        </div>
+                    </div>
+
+                    <div class="banner-slide slide-two">
+                        <div class="pixel-grid"></div>
+                        <div class="cube cube-one"></div>
+                        <div class="cube cube-two"></div>
+
+                        <div class="slide-content">
+                            <small>Visual Performance</small>
+                            <h3>Better Frame Stability</h3>
+                        </div>
+                    </div>
+
+                    <div class="banner-slide slide-three">
+                        <div class="pixel-grid"></div>
+                        <div class="cube cube-one"></div>
+                        <div class="cube cube-two"></div>
+
+                        <div class="slide-content">
+                            <small>NVIDIA Hardware</small>
+                            <h3>Explore With Confidence</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= INTRO ================= -->
+
+<section class="intro" id="about">
+
+    <div class="container">
+
+        <span class="section-label">Performance Guide</span>
+
+        <h2 class="section-title">
+            A Modern Approach to Minecraft Performance
+        </h2>
+
+        <p>
+            Minecraft can look simple at first, but large worlds, long render
+            distances, detailed structures, shaders, and multiple modifications
+            can place significant pressure on a computer.
+        </p>
+
+        <p>
+            When the game begins to stutter or frame delivery becomes
+            inconsistent, players often start looking for ways to improve
+            performance without sacrificing the visual experience they enjoy.
+        </p>
+
+        <p>
+            Nvidium takes a rendering-focused approach to this challenge.
+            Instead of changing the core gameplay, it concentrates on how
+            Minecraft processes and displays its visual environment.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTENT TABLE ================= -->
+
+<section class="container">
+
+    <div class="toc-box">
+
+        <div class="toc-header" id="tocToggle">
+
+            <h2>Table of Contents</h2>
+
+            <span class="toc-arrow" id="tocArrow">+</span>
+
+        </div>
+
+        <div class="toc-content" id="tocContent">
+
+            <div class="toc-list">
+
+                <a href="#rendering">Understanding the Rendering Challenge</a>
+                <a href="#solution">How a Rendering-Focused Solution Helps</a>
+                <a href="#hardware">Compatible Hardware Matters</a>
+                <a href="#distance">Finding the Right Render Distance</a>
+                <a href="#testing">Testing Performance the Right Way</a>
+                <a href="#mods">Using Other Optimization Mods Carefully</a>
+                <a href="#pros-cons">Pros and Cons</a>
+                <a href="#benefit">Who Can Benefit From It?</a>
+                <a href="#reviews">Reviews and User Experience</a>
+                <a href="#faq">Frequently Asked Questions</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ARTICLE PART 1 ================= -->
+
+<main class="content-area">
+
+    <div class="container">
+
+        <article class="article-card">
+
+            <h2 id="rendering">
+                <a href="#rendering">Understanding the Rendering Challenge</a>
+            </h2>
+
+            <p>
+                Every Minecraft world contains a huge amount of information
+                that needs to be displayed. Terrain, blocks, vegetation,
+                structures, lighting, entities, and distant landscapes all
+                contribute to the workload handled by the system.
+            </p>
+
+            <p>
+                Render distance can make this workload even more demanding.
+                Increasing the distance allows players to see farther, but the
+                game must also process more terrain and graphical information.
+            </p>
+
+            <div class="highlight">
+                A stable Minecraft experience is not only about maximum FPS.
+                Consistent frame delivery, responsive movement, and reduced
+                stuttering can make gameplay feel considerably better.
+            </div>
+
+            <p>
+                The difference can become especially noticeable when moving
+                quickly through large areas where new sections of the world
+                constantly become visible.
+            </p>
+
+            <p>
+                Modded installations can add another layer of complexity. A
+                collection of visual enhancements and performance modifications
+                may interact with the game's rendering process in different ways.
+            </p>
+
+
+            <h2 id="solution">
+                <a href="#solution">
+                    How a Rendering-Focused Solution Helps
+                </a>
+            </h2>
+
+            <p>
+                A rendering optimization is most useful when graphics processing
+                represents an important part of the performance limitation.
+                Rather than simply reducing visual quality, the goal is to make
+                supported rendering operations more efficient.
+            </p>
+
+            <p>
+                This approach can be valuable for players who want to maintain
+                a higher level of visual detail while seeking more consistent
+                frame delivery.
+            </p>
+
+            <p>
+                However, results depend on the complete setup. Graphics
+                hardware, processor performance, Minecraft version, drivers,
+                installed modifications, resource packs, and world complexity
+                can all influence the final experience.
+            </p>
+
+
+            <h2 id="hardware">
+                <a href="#hardware">Compatible Hardware Matters</a>
+            </h2>
+
+            <p>
+                Hardware compatibility is one of the most important factors to
+                consider. Nvidium is designed around compatible NVIDIA graphics
+                hardware, so users should not expect identical results across
+                every computer.
+            </p>
+
+            <p>
+                Having a supported graphics card is only the starting point.
+                The Minecraft version, mod loader, drivers, configuration, and
+                other installed modifications can also affect stability and
+                performance.
+            </p>
+
+        </article>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* ================= MOBILE MENU ================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
+});
+
+
+/* ================= TABLE OF CONTENTS ================= */
+
+const tocToggle = document.getElementById("tocToggle");
+const tocContent = document.getElementById("tocContent");
+const tocArrow = document.getElementById("tocArrow");
+
+tocToggle.addEventListener("click", () => {
+
+    tocContent.classList.toggle("open");
+
+    if(tocContent.classList.contains("open")){
+        tocArrow.textContent = "−";
+        tocArrow.style.transform = "rotate(180deg)";
+    }else{
+        tocArrow.textContent = "+";
+        tocArrow.style.transform = "rotate(0deg)";
+    }
+
+});
+
+
+/* ================= CHANGING BANNER ================= */
+
+const slides = document.querySelectorAll(".banner-slide");
+let currentSlide = 0;
+
+setInterval(() => {
+
+    slides[currentSlide].classList.remove("active");
+
+    currentSlide++;
+
+    if(currentSlide >= slides.length){
+        currentSlide = 0;
+    }
+
+    slides[currentSlide].classList.add("active");
+
+}, 3500);
+
+</script>
+
+</body>
+</html>
+<!-- ================= ARTICLE PART 2 ================= -->
+
+<section class="article-continuation">
+
+    <div class="container">
+
+        <article class="article-card">
+
+            <h2 id="distance">
+                <a href="#distance">Finding the Right Render Distance</a>
+            </h2>
+
+            <p>
+                Render distance has a direct effect on how much of the Minecraft
+                world must be processed. A higher value can create a beautiful
+                sense of scale, especially when exploring mountains, forests,
+                villages, or large player-built structures.
+            </p>
+
+            <p>
+                At the same time, continuously increasing the setting can
+                eventually create performance problems. A better strategy is to
+                begin with a reasonable value and gradually increase it while
+                monitoring gameplay.
+            </p>
+
+            <!-- CENTER VISUAL -->
+            <div class="center-visual">
+                <div class="minecraft-scene">
+                    <div class="scene-sky"></div>
+                    <div class="scene-mountain mountain-one"></div>
+                    <div class="scene-mountain mountain-two"></div>
+                    <div class="scene-ground"></div>
+                    <div class="scene-tree tree-one"></div>
+                    <div class="scene-tree tree-two"></div>
+                    <div class="scene-glow"></div>
+
+                    <div class="scene-label">
+                        <span>PERFORMANCE</span>
+                        Balanced Render Distance
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                A stable experience at a sensible distance is generally more
+                enjoyable than a higher setting that causes frequent stutters.
+                Optimization should therefore focus on consistency rather than
+                chasing the largest possible number.
+            </p>
+
+
+            <h2 id="testing">
+                <a href="#testing">Testing Performance the Right Way</a>
+            </h2>
+
+            <p>
+                Before making changes, players should establish a baseline.
+                Start with the normal Minecraft configuration and observe how it
+                performs during activities that regularly cause slowdowns.
+            </p>
+
+            <p>
+                Pay attention to more than average FPS. Frame-time consistency,
+                camera movement, world loading, responsiveness, and stuttering
+                can provide valuable information about the actual experience.
+            </p>
+
+            <p>
+                After establishing the baseline, make one significant change at
+                a time. This makes it easier to identify whether a particular
+                modification helped or introduced a problem.
+            </p>
+
+
+            <!-- LEFT IMAGE / RIGHT CONTENT -->
+            <div class="feature-row">
+
+                <div class="feature-image">
+                    <div class="performance-art">
+                        <div class="art-grid"></div>
+                        <div class="art-circle"></div>
+                        <div class="art-block art-block-one"></div>
+                        <div class="art-block art-block-two"></div>
+                        <div class="art-block art-block-three"></div>
+
+                        <div class="art-title">
+                            <small>SMART TESTING</small>
+                            <strong>Stable Frames</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-content">
+
+                    <span class="mini-label">Performance Testing</span>
+
+                    <h3>
+                        Compare the Same Minecraft Environment
+                    </h3>
+
+                    <p>
+                        Testing the same route or location can also produce
+                        better comparisons. A large base, busy village, forest,
+                        or complex landscape may place very different demands on
+                        the system compared with an empty area.
+                    </p>
+
+                    <p>
+                        Keeping the testing conditions similar helps players
+                        understand whether a performance change is actually
+                        useful instead of relying on random FPS readings.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h2 id="mods">
+                <a href="#mods">Using Other Optimization Mods Carefully</a>
+            </h2>
+
+            <p>
+                Minecraft has a large ecosystem of performance-related
+                modifications. Combining several tools can sometimes create a
+                strong setup, but adding more components does not automatically
+                mean better performance.
+            </p>
+
+            <p>
+                Different modifications may affect overlapping parts of the
+                rendering or game-processing pipeline. Version mismatches and
+                compatibility issues can also lead to crashes, visual glitches,
+                or unexpected performance changes.
+            </p>
+
+            <div class="info-strip">
+                <div class="info-icon">✓</div>
+                <div>
+                    <strong>Build Your Setup Gradually</strong>
+                    <p>
+                        Add modifications one at a time, test after important
+                        changes, and keep a known-working configuration available.
+                    </p>
+                </div>
+            </div>
+
+            <p>
+                A controlled approach is safer. Add modifications gradually,
+                test after each important change, and keep a known-working
+                configuration available. This makes troubleshooting much easier
+                if something goes wrong.
+            </p>
+
+
+            <!-- ================= PROS CONS ================= -->
+
+            <h2 id="pros-cons">
+                <a href="#pros-cons">Pros and Cons</a>
+            </h2>
+
+            <div class="pros-cons-grid">
+
+                <div class="pc-card pros-card">
+
+                    <div class="pc-top">
+                        <div class="pc-icon">+</div>
+                        <h3>Pros</h3>
+                    </div>
+
+                    <ul>
+                        <li>Focuses on rendering efficiency.</li>
+                        <li>Designed for compatible NVIDIA graphics hardware.</li>
+                        <li>Can be useful for demanding visual environments.</li>
+                        <li>May complement a broader Minecraft optimization setup.</li>
+                        <li>Can help players explore higher render-distance settings.</li>
+                        <li>Concentrates on performance rather than changing core gameplay.</li>
+                    </ul>
+
+                </div>
+
+
+                <div class="pc-card cons-card">
+
+                    <div class="pc-top">
+                        <div class="pc-icon">−</div>
+                        <h3>Cons</h3>
+                    </div>
+
+                    <ul>
+                        <li>Compatibility is not universal.</li>
+                        <li>Results can differ significantly between systems.</li>
+                        <li>Minecraft and mod-loader versions must be considered.</li>
+                        <li>Other rendering modifications may create conflicts.</li>
+                        <li>It cannot solve every CPU, memory, or system-level bottleneck.</li>
+                        <li>Finding the best configuration may require testing.</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <h2 id="benefit">
+                <a href="#benefit">Who Can Benefit From It?</a>
+            </h2>
+
+            <p>
+                Players with compatible NVIDIA hardware and rendering-related
+                performance limitations are the most obvious audience. Builders
+                working on large projects may appreciate more consistent
+                performance when viewing extensive structures.
+            </p>
+
+            <p>
+                Explorers can also benefit from a smoother experience when
+                traveling through large landscapes. Players who prefer longer
+                viewing distances or demanding visual configurations may find a
+                rendering-focused optimization worth testing.
+            </p>
+
+            <!-- RIGHT IMAGE / LEFT CONTENT -->
+
+            <div class="feature-row reverse-row">
+
+                <div class="feature-content">
+
+                    <span class="mini-label">Minecraft Experience</span>
+
+                    <h3>
+                        Built Around Large and Detailed Worlds
+                    </h3>
+
+                    <p>
+                        Large Minecraft builds can place considerable pressure
+                        on rendering performance. Builders and explorers often
+                        want to keep distant terrain visible while maintaining
+                        smooth movement.
+                    </p>
+
+                    <p>
+                        A balanced configuration can make demanding environments
+                        easier to enjoy without immediately lowering every visual
+                        setting.
+                    </p>
+
+                </div>
+
+                <div class="feature-image">
+                    <div class="world-art">
+                        <div class="world-sky"></div>
+                        <div class="world-sun"></div>
+                        <div class="world-mountain"></div>
+                        <div class="world-land"></div>
+                        <div class="world-house"></div>
+                        <div class="world-tree"></div>
+
+                        <div class="world-badge">
+                            LARGE WORLDS
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <p>
+                However, users whose main limitation comes from the processor,
+                memory, storage, or another unrelated component should identify
+                that bottleneck first. A specialized rendering solution cannot
+                compensate for every type of performance problem.
+            </p>
+
+
+            <h2 id="reviews">
+                <a href="#reviews">Reviews and User Experience</a>
+            </h2>
+
+            <p>
+                Performance experiences can vary considerably from one Minecraft
+                setup to another. A player using compatible NVIDIA hardware in a
+                large and visually demanding world may notice a meaningful
+                difference, while someone with a lightweight configuration may
+                see a smaller improvement.
+            </p>
+
+            <p>
+                This variation is normal with optimization tools. Hardware
+                specifications, Minecraft versions, settings, installed
+                modifications, and world conditions all influence the outcome.
+            </p>
+
+            <div class="review-highlight">
+
+                <div class="review-stars">★★★★★</div>
+
+                <p>
+                    The most useful review is based on a real setup rather than
+                    a single FPS claim. Compare the same environment before and
+                    after changes and consider smoothness, stability,
+                    responsiveness, and overall gameplay quality.
+                </p>
+
+            </div>
+
+
+            <!-- ================= FAQ ================= -->
+
+            <h2 id="faq">
+                <a href="#faq">Frequently Asked Questions</a>
+            </h2>
+
+            <div class="faq-container">
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        <span>Is Nvidium suitable for every computer?</span>
+                        <span class="faq-plus">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            No. Its rendering approach is intended for compatible
+                            NVIDIA hardware, so users should check the requirements
+                            before installation.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        <span>Can it solve all Minecraft lag?</span>
+                        <span class="faq-plus">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            No. Performance issues can come from the CPU, GPU,
+                            memory, settings, mods, drivers, or world complexity.
+                            Rendering optimization mainly addresses the
+                            graphics-related side of performance.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        <span>Should I immediately increase render distance?</span>
+                        <span class="faq-plus">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Not necessarily. Start with your current settings and
+                            gradually increase the distance while checking whether
+                            gameplay remains stable.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        <span>Can it work alongside other optimization modifications?</span>
+                        <span class="faq-plus">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            It may, depending on the versions and configuration.
+                            Compatibility should always be checked before combining
+                            rendering-related tools.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        <span>How can I measure the improvement?</span>
+                        <span class="faq-plus">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Use the same world, similar settings, and preferably
+                            the same route before and after making changes. Compare
+                            frame consistency, stuttering, responsiveness, and
+                            general gameplay instead of relying only on peak FPS.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FINAL THOUGHTS ================= -->
+
+            <h2 id="final-thoughts">
+                <a href="#final-thoughts">Final Thoughts</a>
+            </h2>
+
+            <p>
+                Nvidium offers a specialized approach to Minecraft performance
+                by concentrating on rendering efficiency for compatible NVIDIA
+                hardware. This makes it an interesting option for players who
+                want to explore demanding environments without immediately
+                reducing their visual ambitions.
+            </p>
+
+            <p>
+                The best results come from a balanced approach. Check hardware
+                compatibility, use appropriate Minecraft and mod versions,
+                establish a performance baseline, and introduce changes gradually.
+            </p>
+
+            <p>
+                Render distance and visual settings should then be adjusted
+                according to what the system can handle consistently.
+            </p>
+
+            <div class="final-box">
+
+                <div class="final-box-icon">N</div>
+
+                <div>
+                    <h3>Performance Is About More Than FPS</h3>
+
+                    <p>
+                        A stable and responsive experience is far more valuable
+                        when exploring large worlds, building detailed structures,
+                        and enjoying Minecraft for long sessions.
+                    </p>
+                </div>
+
+            </div>
+
+            <p>
+                Ultimately, good Minecraft performance is not simply about
+                reaching the highest FPS number. A stable and responsive
+                experience is far more valuable when exploring large worlds,
+                building detailed structures, and enjoying the game for long
+                sessions.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* ================= PART 2 VISUALS ================= */
+
+.article-continuation{
+    padding:0 0 70px;
+}
+
+.center-visual{
+    margin:35px auto;
+    width:min(780px,100%);
+}
+
+.minecraft-scene{
+    position:relative;
+    height:300px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#10223a;
+    box-shadow:0 18px 45px rgba(7,17,31,.15);
+}
+
+.scene-sky{
+    position:absolute;
+    inset:0 0 42% 0;
+    background:
+        radial-gradient(circle at 75% 28%,rgba(255,255,255,.5),transparent 8%),
+        linear-gradient(180deg,#132c50,#21769b);
+}
+
+.scene-ground{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:46%;
+    background:
+        linear-gradient(135deg,#123b42 25%,#175050 25%,#175050 50%,#0e353d 50%,#0e353d 75%,#19494a 75%);
+    background-size:70px 70px;
+}
+
+.scene-mountain{
+    position:absolute;
+    bottom:65px;
+    width:300px;
+    height:160px;
+    transform:rotate(45deg);
+    background:linear-gradient(135deg,#243f61,#13243e);
+    opacity:.9;
+}
+
+.mountain-one{
+    left:70px;
+}
+
+.mountain-two{
+    right:80px;
+    width:230px;
+    height:130px;
+}
+
+.scene-tree{
+    position:absolute;
+    bottom:68px;
+    width:24px;
+    height:80px;
+    background:#1b473c;
+    border-radius:4px;
+}
+
+.scene-tree:before{
+    content:"";
+    position:absolute;
+    width:75px;
+    height:75px;
+    left:-25px;
+    top:-45px;
+    border-radius:10px;
+    background:#20724d;
+    transform:rotate(45deg);
+}
+
+.tree-one{
+    right:90px;
+}
+
+.tree-two{
+    left:210px;
+    transform:scale(.8);
+}
+
+.scene-glow{
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:120px;
+    top:35px;
+    border-radius:50%;
+    background:rgba(34,211,238,.14);
+    filter:blur(20px);
+}
+
+.scene-label{
+    position:absolute;
+    z-index:5;
+    left:24px;
+    bottom:22px;
+    color:#fff;
+    font-size:22px;
+    font-weight:800;
+    text-shadow:0 3px 15px rgba(0,0,0,.4);
+}
+
+.scene-label span{
+    display:block;
+    font-size:11px;
+    letter-spacing:2px;
+    color:#9deaff;
+    margin-bottom:2px;
+}
+
+
+/* ================= FEATURE ROW ================= */
+
+.feature-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:42px;
+    margin:50px 0;
+    padding:10px 0;
+}
+
+.reverse-row .feature-content{
+    order:1;
+}
+
+.reverse-row .feature-image{
+    order:2;
+}
+
+.feature-image{
+    min-width:0;
+}
+
+.feature-content{
+    min-width:0;
+}
+
+.mini-label{
+    color:var(--blue);
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:1.5px;
+    font-weight:800;
+}
+
+.feature-content h3{
+    font-size:28px;
+    line-height:1.3;
+    margin:9px 0 14px;
+    color:var(--dark);
+}
+
+.feature-content p{
+    color:var(--muted);
+}
+
+.performance-art,
+.world-art{
+    height:290px;
+    border-radius:20px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 45px rgba(7,17,31,.16);
+}
+
+.performance-art{
+    background:
+        radial-gradient(circle at 75% 25%,rgba(34,211,238,.45),transparent 18%),
+        linear-gradient(135deg,#091a31,#15456c 55%,#34246c);
+}
+
+.art-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+    background-size:35px 35px;
+}
+
+.art-circle{
+    position:absolute;
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.25);
+    right:45px;
+    top:40px;
+}
+
+.art-block{
+    position:absolute;
+    border-radius:10px;
+    background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.04));
+    border:1px solid rgba(255,255,255,.15);
+    transform:rotate(12deg);
+}
+
+.art-block-one{
+    width:80px;
+    height:80px;
+    right:90px;
+    top:85px;
+}
+
+.art-block-two{
+    width:48px;
+    height:48px;
+    right:175px;
+    top:145px;
+}
+
+.art-block-three{
+    width:55px;
+    height:55px;
+    left:80px;
+    top:55px;
+}
+
+.art-title{
+    position:absolute;
+    bottom:25px;
+    left:25px;
+    color:#fff;
+}
+
+.art-title small{
+    display:block;
+    color:#9eeeff;
+    font-size:11px;
+    letter-spacing:1.5px;
+}
+
+.art-title strong{
+    display:block;
+    font-size:24px;
+    margin-top:2px;
+}
+
+
+.world-art{
+    background:linear-gradient(180deg,#102f52,#2a7590 58%,#163f42);
+}
+
+.world-sky{
+    position:absolute;
+    inset:0 0 45% 0;
+    background:
+        radial-gradient(circle at 72% 25%,#d8f7ff 0 5%,transparent 6%),
+        linear-gradient(180deg,#15325b,#267b9a);
+}
+
+.world-sun{
+    position:absolute;
+    width:65px;
+    height:65px;
+    right:65px;
+    top:45px;
+    border-radius:50%;
+    background:rgba(255,255,255,.65);
+    box-shadow:0 0 35px rgba(255,255,255,.3);
+}
+
+.world-land{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:50%;
+    background:#155044;
+    clip-path:polygon(0 28%,20% 15%,35% 28%,52% 10%,70% 30%,85% 15%,100% 27%,100% 100%,0 100%);
+}
+
+.world-mountain{
+    position:absolute;
+    bottom:105px;
+    left:65px;
+    width:220px;
+    height:110px;
+    background:#23445a;
+    clip-path:polygon(0 100%,50% 0,100% 100%);
+}
+
+.world-house{
+    position:absolute;
+    bottom:67px;
+    right:90px;
+    width:90px;
+    height:70px;
+    background:#a95f42;
+}
+
+.world-house:before{
+    content:"";
+    position:absolute;
+    left:-15px;
+    top:-40px;
+    width:0;
+    height:0;
+    border-left:60px solid transparent;
+    border-right:60px solid transparent;
+    border-bottom:55px solid #493451;
+}
+
+.world-tree{
+    position:absolute;
+    bottom:62px;
+    left:105px;
+    width:22px;
+    height:75px;
+    background:#4c3626;
+}
+
+.world-tree:before{
+    content:"";
+    position:absolute;
+    width:75px;
+    height:75px;
+    left:-26px;
+    top:-45px;
+    border-radius:50%;
+    background:#20764f;
+}
+
+.world-badge{
+    position:absolute;
+    left:22px;
+    bottom:20px;
+    padding:8px 13px;
+    border-radius:8px;
+    background:rgba(7,17,31,.65);
+    color:#fff;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+
+
+/* ================= INFO STRIP ================= */
+
+.info-strip{
+    display:flex;
+    align-items:center;
+    gap:17px;
+    margin:30px 0;
+    padding:20px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#eefaff,#f4f0ff);
+    border:1px solid #dcebf5;
+}
+
+.info-icon{
+    width:44px;
+    height:44px;
+    flex:0 0 44px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    font-size:21px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--blue),var(--cyan));
+}
+
+.info-strip strong{
+    color:var(--dark);
+}
+
+.info-strip p{
+    margin:2px 0 0;
+}
+
+
+/* ================= PROS CONS ================= */
+
+.pros-cons-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin:30px 0 50px;
+}
+
+.pc-card{
+    border-radius:20px;
+    padding:28px;
+    border:1px solid var(--border);
+    background:#fff;
+    transition:.4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.pc-card:before{
+    content:"";
+    position:absolute;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    right:-50px;
+    top:-50px;
+    opacity:.08;
+    transition:.4s;
+}
+
+.pc-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 24px 55px rgba(7,17,31,.15);
+}
+
+.pc-card:hover:before{
+    transform:scale(1.7);
+}
+
+.pros-card:before{
+    background:var(--green);
+}
+
+.cons-card:before{
+    background:#ef4444;
+}
+
+.pc-top{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:20px;
+}
+
+.pc-top h3{
+    margin:0;
+    font-size:25px;
+}
+
+.pc-icon{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    color:#fff;
+    font-size:24px;
+    font-weight:900;
+}
+
+.pros-card .pc-icon{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+}
+
+.cons-card .pc-icon{
+    background:linear-gradient(135deg,#dc2626,#f97316);
+}
+
+.pc-card ul{
+    list-style:none;
+}
+
+.pc-card li{
+    position:relative;
+    padding:9px 0 9px 27px;
+    color:#5e6b7d;
+    border-bottom:1px solid #edf1f5;
+}
+
+.pc-card li:last-child{
+    border-bottom:0;
+}
+
+.pc-card li:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:15px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+}
+
+.pros-card li:before{
+    background:#22c55e;
+}
+
+.cons-card li:before{
+    background:#ef4444;
+}
+
+
+/* ================= REVIEW ================= */
+
+.review-highlight{
+    margin:30px 0;
+    padding:28px;
+    border-radius:18px;
+    background:
+        radial-gradient(circle at 90% 10%,rgba(139,92,246,.13),transparent 30%),
+        linear-gradient(135deg,#f5f9ff,#f8f5ff);
+    border:1px solid #e5e9f3;
+}
+
+.review-stars{
+    color:#f59e0b;
+    letter-spacing:5px;
+    font-size:19px;
+    margin-bottom:10px;
+}
+
+
+/* ================= FAQ ================= */
+
+.faq-container{
+    margin:30px 0 50px;
+}
+
+.faq-item{
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin-bottom:12px;
+    overflow:hidden;
+    background:#fff;
+    transition:.3s;
+}
+
+.faq-item:hover{
+    border-color:#c9dcf5;
+    box-shadow:0 10px 28px rgba(7,17,31,.06);
+}
+
+.faq-question{
+    width:100%;
+    padding:19px 21px;
+    border:0;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    text-align:left;
+    cursor:pointer;
+    color:var(--dark);
+    font-size:16px;
+    font-weight:700;
+}
+
+.faq-plus{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    display:grid;
+    place-items:center;
+    background:#eef5ff;
+    color:var(--blue);
+    font-size:20px;
+    flex:0 0 30px;
+    transition:.3s;
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+}
+
+.faq-answer p{
+    padding:0 21px 20px;
+    margin:0;
+}
+
+.faq-item.active .faq-answer{
+    max-height:300px;
+}
+
+.faq-item.active .faq-plus{
+    transform:rotate(45deg);
+    background:#e7faff;
+}
+
+
+/* ================= FINAL BOX ================= */
+
+.final-box{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:25px;
+    margin:35px 0;
+    border-radius:18px;
+    background:linear-gradient(135deg,#08172a,#112b4b);
+    color:#fff;
+    box-shadow:0 20px 45px rgba(7,17,31,.18);
+}
+
+.final-box-icon{
+    width:58px;
+    height:58px;
+    flex:0 0 58px;
+    display:grid;
+    place-items:center;
+    border-radius:17px;
+    font-size:25px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--blue),var(--purple),var(--cyan));
+}
+
+.final-box h3{
+    color:#fff;
+    margin:0 0 4px;
+    font-size:21px;
+}
+
+.final-box p{
+    color:#b9c8dc;
+    margin:0;
+}
+
+
+/* ================= MOBILE PART 2 ================= */
+
+@media(max-width:800px){
+
+    .feature-row{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+    .reverse-row .feature-content{
+        order:1;
+    }
+
+    .reverse-row .feature-image{
+        order:2;
+    }
+
+    .pros-cons-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .article-continuation .article-card{
+        padding:24px 20px;
+    }
+
+    .minecraft-scene{
+        height:245px;
+    }
+
+    .performance-art,
+    .world-art{
+        height:245px;
+    }
+
+    .feature-content h3{
+        font-size:24px;
+    }
+
+    .scene-label{
+        font-size:18px;
+    }
+
+    .final-box{
+        align-items:flex-start;
+    }
+
+    .info-strip{
+        align-items:flex-start;
+    }
+
+}
+</style>
+
+
+<script>
+
+/* ================= FAQ ACCORDION ================= */
+
+const faqQuestions = document.querySelectorAll(".faq-question");
+
+faqQuestions.forEach(question => {
+
+    question.addEventListener("click", () => {
+
+        const currentItem = question.parentElement;
+
+        document.querySelectorAll(".faq-item").forEach(item => {
+
+            if(item !== currentItem){
+                item.classList.remove("active");
+            }
+
+        });
+
+        currentItem.classList.toggle("active");
+
+    });
+
+});
+
+
+/* ================= CLICKABLE ARTICLE HEADINGS ================= */
+
+document.querySelectorAll(".article-card h2 a").forEach(heading => {
+
+    heading.addEventListener("click", function(){
+
+        document.querySelectorAll(".article-card h2 a").forEach(item => {
+            item.style.color = "";
+        });
+
+        this.style.color = "#8b5cf6";
+
+        setTimeout(() => {
+            this.style.color = "";
+        }, 1000);
+
+    });
+
+});
+
+</script>
+<!-- ================= PREMIUM FOOTER ================= -->
+
+<footer class="premium-footer">
+
+    <div class="footer-glow"></div>
+
+    <div class="container">
+
+        <div class="footer-main">
+
+            <!-- FOOTER BRAND -->
+
+            <div class="footer-brand">
+
+                <a href="#home" class="footer-logo">
+                    <span class="footer-logo-icon">N</span>
+                    <span>Nvidium Guide</span>
+                </a>
+
+                <p>
+                    Explore a practical guide to Minecraft rendering,
+                    performance optimization, compatible hardware, render
+                    distance, and smoother gameplay.
+                </p>
+
+                <a href="#home" class="footer-back">
+                    Back to Top ↑
+                </a>
+
+            </div>
+
+
+            <!-- FOOTER NAVIGATION -->
+
+            <div class="footer-column">
+
+                <h3>Explore</h3>
+
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#rendering">Rendering Challenge</a>
+                <a href="#solution">Rendering Solution</a>
+                <a href="#hardware">Compatible Hardware</a>
+                <a href="#testing">Performance Testing</a>
+
+            </div>
+
+
+            <!-- FOOTER GUIDE -->
+
+            <div class="footer-column">
+
+                <h3>Guide</h3>
+
+                <a href="#distance">Render Distance</a>
+                <a href="#mods">Optimization Mods</a>
+                <a href="#pros-cons">Pros & Cons</a>
+                <a href="#benefit">Who Can Benefit</a>
+                <a href="#reviews">User Experience</a>
+                <a href="#faq">FAQ</a>
+
+            </div>
+
+
+            <!-- FOOTER CTA -->
+
+            <div class="footer-column footer-action">
+
+                <h3>Get Started</h3>
+
+                <p>
+                    Ready to explore a rendering-focused Minecraft
+                    performance approach?
+                </p>
+
+                <!-- SAME SINGLE EXTERNAL LINK -->
+                <a href="https://nvidium.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="footer-download">
+                    Download Now →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span> Nvidium Guide. All rights reserved.
+            </p>
+
+            <div class="footer-bottom-links">
+                <a href="#home">Home</a>
+                <a href="#faq">FAQ</a>
+                <a href="#final-thoughts">Final Thoughts</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= BACK TO TOP ================= -->
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+    ↑
+</button>
+
+
+<style>
+
+/* =========================================
+   PREMIUM FOOTER
+========================================= */
+
+.premium-footer{
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 15% 20%,rgba(34,211,238,.10),transparent 25%),
+        radial-gradient(circle at 85% 10%,rgba(139,92,246,.12),transparent 25%),
+        linear-gradient(135deg,#050d19,#09182a 55%,#0c1428);
+    color:#fff;
+    padding:75px 0 0;
+    margin-top:20px;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.footer-glow{
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    right:-200px;
+    bottom:-200px;
+    background:rgba(59,130,246,.10);
+    filter:blur(50px);
+    pointer-events:none;
+}
+
+.footer-main{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1.2fr;
+    gap:45px;
+    padding-bottom:55px;
+}
+
+.footer-brand{
+    max-width:360px;
+}
+
+.footer-logo{
+    display:inline-flex;
+    align-items:center;
+    gap:11px;
+    font-size:21px;
+    font-weight:800;
+    color:#fff;
+    margin-bottom:18px;
+}
+
+.footer-logo-icon{
+    width:41px;
+    height:41px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6,#22d3ee);
+    box-shadow:0 10px 28px rgba(59,130,246,.28);
+}
+
+.footer-brand p{
+    color:#94a8bf;
+    font-size:14px;
+    line-height:1.8;
+    margin-bottom:23px;
+}
+
+.footer-back{
+    display:inline-flex;
+    padding:9px 14px;
+    border-radius:9px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);
+    color:#d8e5f4;
+    font-size:13px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.footer-back:hover{
+    transform:translateY(-3px);
+    border-color:rgba(34,211,238,.5);
+    color:#fff;
+    background:rgba(34,211,238,.08);
+}
+
+
+/* =========================================
+   FOOTER COLUMNS
+========================================= */
+
+.footer-column{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.footer-column h3{
+    color:#fff;
+    font-size:16px;
+    margin:4px 0 18px;
+}
+
+.footer-column a{
+    color:#91a5bc;
+    font-size:13px;
+    margin:6px 0;
+    transition:.3s;
+    position:relative;
+}
+
+.footer-column a:before{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-3px;
+    width:0;
+    height:1px;
+    background:#22d3ee;
+    transition:.3s;
+}
+
+.footer-column a:hover{
+    color:#fff;
+    transform:translateX(4px);
+}
+
+.footer-column a:hover:before{
+    width:100%;
+}
+
+.footer-action p{
+    color:#91a5bc;
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:17px;
+}
+
+.footer-download{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    padding:12px 18px !important;
+    border-radius:11px;
+    color:#fff !important;
+    font-weight:800;
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+    box-shadow:0 12px 30px rgba(59,130,246,.24);
+    transition:.35s !important;
+}
+
+.footer-download:before{
+    display:none !important;
+}
+
+.footer-download:hover{
+    transform:translateY(-4px) !important;
+    box-shadow:0 18px 38px rgba(59,130,246,.4);
+}
+
+
+/* =========================================
+   FOOTER BOTTOM
+========================================= */
+
+.footer-bottom{
+    position:relative;
+    z-index:2;
+    min-height:70px;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.footer-bottom p{
+    color:#71869e;
+    font-size:12px;
+}
+
+.footer-bottom-links{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.footer-bottom-links a{
+    color:#8297ad;
+    font-size:12px;
+    transition:.3s;
+}
+
+.footer-bottom-links a:hover{
+    color:#fff;
+}
+
+
+/* =========================================
+   BACK TO TOP
+========================================= */
+
+.back-to-top{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:46px;
+    height:46px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:13px;
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+    color:#fff;
+    font-size:21px;
+    font-weight:800;
+    cursor:pointer;
+    z-index:998;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(15px);
+    transition:.35s;
+    box-shadow:0 12px 30px rgba(59,130,246,.25);
+}
+
+.back-to-top.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.back-to-top:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 38px rgba(59,130,246,.4);
+}
+
+
+/* =========================================
+   FOOTER RESPONSIVE
+========================================= */
+
+@media(max-width:950px){
+
+    .footer-main{
+        grid-template-columns:1.4fr 1fr 1fr;
+    }
+
+    .footer-action{
+        grid-column:1 / -1;
+        max-width:400px;
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .premium-footer{
+        padding-top:55px;
+    }
+
+    .footer-main{
+        grid-template-columns:1fr 1fr;
+        gap:35px 25px;
+    }
+
+    .footer-brand{
+        grid-column:1 / -1;
+        max-width:100%;
+    }
+
+    .footer-action{
+        grid-column:1 / -1;
+    }
+
+    .footer-bottom{
+        padding:20px 0;
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+    }
+
+}
+
+
+@media(max-width:480px){
+
+    .footer-main{
+        grid-template-columns:1fr;
+    }
+
+    .footer-brand,
+    .footer-action{
+        grid-column:auto;
+    }
+
+    .footer-bottom-links{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px 16px;
+    }
+
+    .back-to-top{
+        width:42px;
+        height:42px;
+        right:15px;
+        bottom:15px;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================================
+   CURRENT YEAR
+========================================= */
+
+document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+
+/* =========================================
+   BACK TO TOP BUTTON
+========================================= */
+
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 500){
+
+        backToTop.classList.add("show");
+
+    }else{
+
+        backToTop.classList.remove("show");
+
+    }
+
+});
+
+
+backToTop.addEventListener("click", () => {
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+/* =========================================
+   CLOSE MOBILE MENU AFTER INTERNAL CLICK
+========================================= */
+
+const allInternalLinks = document.querySelectorAll(
+    'a[href^="#"]'
+);
+
+allInternalLinks.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        const mobileNavigation =
+            document.getElementById("navLinks");
+
+        if(mobileNavigation){
+            mobileNavigation.classList.remove("active");
+        }
+
+    });
+
+});
+
+
+/* =========================================
+   LIGHTWEIGHT SCROLL REVEAL
+========================================= */
+
+const revealElements = document.querySelectorAll(
+    ".article-card h2, .feature-row, .pc-card, .faq-item, .review-highlight, .final-box"
+);
+
+const revealObserver = new IntersectionObserver(
+    (entries) => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("content-visible");
+
+                revealObserver.unobserve(entry.target);
+
+            }
+
+        });
+
+    },
+    {
+        threshold:0.08
+    }
+);
+
+
+revealElements.forEach(element => {
+
+    element.classList.add("content-hidden");
+
+    revealObserver.observe(element);
+
+});
+
+
+/* =========================================
+   PREVENT DOUBLE CLICK FEEL ON DOWNLOAD CTA
+========================================= */
+
+document.querySelectorAll(
+    '.cta-download, .footer-download'
+).forEach(button => {
+
+    button.addEventListener("mouseenter", () => {
+        button.style.willChange = "transform";
+    });
+
+    button.addEventListener("mouseleave", () => {
+        button.style.willChange = "auto";
+    });
+
+});
+
+</script>
+
+
+<style>
+
+/* =========================================
+   LIGHTWEIGHT REVEAL ANIMATION
+========================================= */
+
+.content-hidden{
+    opacity:0;
+    transform:translateY(18px);
+    transition:
+        opacity .55s ease,
+        transform .55s ease;
+}
+
+.content-visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    .content-hidden{
+        opacity:1;
+        transform:none;
+        transition:none;
+    }
+
+}
+
+</style>
+
+</body>
+</html>
+<!-- ================= FINAL WEBSITE POLISH ================= -->
+
+<style>
+
+/* =========================================
+   FINAL PREMIUM POLISH
+========================================= */
+
+html{
+    scroll-padding-top:90px;
+}
+
+::selection{
+    background:#3b82f6;
+    color:#fff;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================
+   PREMIUM SECTION SEPARATOR
+========================================= */
+
+.intro:after{
+    content:"";
+    display:block;
+    width:70px;
+    height:4px;
+    margin-top:35px;
+    border-radius:20px;
+    background:linear-gradient(
+        90deg,
+        #3b82f6,
+        #8b5cf6,
+        #22d3ee
+    );
+}
+
+
+/* =========================================
+   ARTICLE HEADING HOVER
+========================================= */
+
+.article-card h2{
+    position:relative;
+    padding-left:16px;
+}
+
+.article-card h2:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:7px;
+    width:4px;
+    height:calc(100% - 14px);
+    border-radius:10px;
+    background:linear-gradient(
+        180deg,
+        #3b82f6,
+        #8b5cf6
+    );
+    transition:.3s;
+}
+
+.article-card h2:hover:before{
+    background:linear-gradient(
+        180deg,
+        #22d3ee,
+        #8b5cf6
+    );
+    transform:scaleY(1.15);
+}
+
+
+/* =========================================
+   PREMIUM PARAGRAPH LINKS
+========================================= */
+
+.article-card a:not(.cta){
+    transition:.3s ease;
+}
+
+
+/* =========================================
+   BANNER INDICATORS
+========================================= */
+
+.banner-window:after{
+    content:"";
+    position:absolute;
+    z-index:20;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    width:72px;
+    height:5px;
+    border-radius:20px;
+    background:
+        linear-gradient(
+            90deg,
+            #22d3ee 0 33%,
+            rgba(255,255,255,.35) 33% 66%,
+            rgba(255,255,255,.35) 66%
+        );
+    opacity:.9;
+}
+
+
+/* =========================================
+   HERO PREMIUM GLOW
+========================================= */
+
+.hero-content{
+    position:relative;
+    z-index:3;
+}
+
+.hero-content:after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    left:-100px;
+    top:100px;
+    border-radius:50%;
+    background:rgba(59,130,246,.12);
+    filter:blur(60px);
+    z-index:-1;
+    pointer-events:none;
+}
+
+
+/* =========================================
+   CTA ACTIVE EFFECT
+========================================= */
+
+.cta:active,
+.footer-download:active{
+    transform:scale(.97) !important;
+}
+
+.cta-download{
+    position:relative;
+    overflow:hidden;
+}
+
+.cta-download:after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-110%;
+    width:60%;
+    height:100%;
+    transform:skewX(-20deg);
+    background:rgba(255,255,255,.22);
+    transition:.55s;
+}
+
+.cta-download:hover:after{
+    left:140%;
+}
+
+
+/* =========================================
+   CONTENT CARD PREMIUM BORDER
+========================================= */
+
+.article-card{
+    position:relative;
+}
+
+.article-card:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    border-radius:22px;
+    padding:1px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(59,130,246,.18),
+            transparent 35%,
+            rgba(139,92,246,.15),
+            transparent 75%
+        );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+}
+
+
+/* =========================================
+   FAQ OPEN STATE
+========================================= */
+
+.faq-item.active{
+    border-color:#c8dcf5;
+    box-shadow:0 14px 35px rgba(59,130,246,.08);
+}
+
+.faq-item.active .faq-question{
+    background:linear-gradient(
+        90deg,
+        #f5faff,
+        #faf8ff
+    );
+}
+
+
+/* =========================================
+   PROS / CONS PREMIUM HOVER
+========================================= */
+
+.pc-card{
+    isolation:isolate;
+}
+
+.pc-card:after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:0;
+    left:0;
+    top:50%;
+    background:linear-gradient(
+        180deg,
+        #22d3ee,
+        #8b5cf6
+    );
+    transition:.4s;
+}
+
+.pc-card:hover:after{
+    height:70%;
+    top:15%;
+}
+
+
+/* =========================================
+   MOBILE TOUCH IMPROVEMENTS
+========================================= */
+
+@media(max-width:850px){
+
+    .nav-links a{
+        padding:7px 0;
+    }
+
+    .toc-header{
+        padding:18px;
+    }
+
+    .toc-list{
+        padding:15px 20px 20px;
+    }
+
+    .hero-visual{
+        max-width:680px;
+        width:100%;
+        margin:auto;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE POLISH
+========================================= */
+
+@media(max-width:480px){
+
+    .container{
+        width:91%;
+    }
+
+    .hero{
+        padding-top:50px;
+        padding-bottom:55px;
+    }
+
+    .hero h1{
+        letter-spacing:-1px;
+    }
+
+    .badge{
+        font-size:11px;
+    }
+
+    .visual-card{
+        padding:10px;
+        border-radius:20px;
+    }
+
+    .banner-window{
+        border-radius:15px;
+    }
+
+    .slide-content{
+        padding:22px;
+    }
+
+    .slide-content h3{
+        font-size:22px;
+    }
+
+    .article-card{
+        border-radius:17px;
+    }
+
+    .article-card h2{
+        padding-left:12px;
+    }
+
+    .article-card h2:before{
+        width:3px;
+    }
+
+    .toc-box{
+        border-radius:15px;
+    }
+
+    .pc-card{
+        padding:22px;
+    }
+
+}
+
+
+/* =========================================
+   PRINT FRIENDLY
+========================================= */
+
+@media print{
+
+    .site-header,
+    .menu-btn,
+    .cta-area,
+    .back-to-top,
+    .premium-footer{
+        display:none !important;
+    }
+
+    body{
+        background:#fff;
+    }
+
+    .article-card{
+        box-shadow:none;
+        border:0;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================================
+   ACTIVE NAVIGATION
+========================================= */
+
+const navigationLinks =
+    document.querySelectorAll(".nav-links a");
+
+const pageSections = [
+    "home",
+    "about",
+    "rendering",
+    "solution",
+    "hardware",
+    "testing",
+    "pros-cons",
+    "faq"
+];
+
+window.addEventListener("scroll", () => {
+
+    let currentSection = "home";
+
+    pageSections.forEach(id => {
+
+        const section = document.getElementById(id);
+
+        if(section){
+
+            const sectionTop =
+                section.getBoundingClientRect().top;
+
+            if(sectionTop <= 130){
+                currentSection = id;
+            }
+
+        }
+
+    });
+
+    navigationLinks.forEach(link => {
+
+        link.classList.remove("nav-active");
+
+        const href =
+            link.getAttribute("href");
+
+        if(
+            href === "#" + currentSection ||
+            (
+                currentSection === "rendering" &&
+                href === "#performance"
+            ) ||
+            (
+                currentSection === "solution" &&
+                href === "#performance"
+            )
+        ){
+
+            link.classList.add("nav-active");
+
+        }
+
+    });
+
+});
+
+
+/* =========================================
+   ACTIVE NAVIGATION STYLE
+========================================= */
+
+const navStyle = document.createElement("style");
+
+navStyle.textContent = `
+    .nav-links a.nav-active{
+        color:#ffffff !important;
+    }
+
+    .nav-links a.nav-active:after{
+        width:100%;
+    }
+`;
+
+document.head.appendChild(navStyle);
+
+
+/* =========================================
+   SMOOTH INTERNAL LINK HANDLING
+========================================= */
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", function(event){
+
+        const targetID =
+            this.getAttribute("href");
+
+        if(targetID === "#" || targetID === "#home"){
+            event.preventDefault();
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+
+            return;
+        }
+
+        const target =
+            document.querySelector(targetID);
+
+        if(target){
+
+            event.preventDefault();
+
+            const headerHeight = 85;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                headerHeight;
+
+            window.scrollTo({
+                top:targetPosition,
+                behavior:"smooth"
+            });
+
+        }
+
+    });
+
+});
+
+
+/* =========================================
+   IMAGE FALLBACK
+========================================= */
+
+document.querySelectorAll("img").forEach(image => {
+
+    image.addEventListener("error", () => {
+
+        image.style.display = "none";
+
+    });
+
+});
+
+
+/* =========================================
+   PERFORMANCE FRIENDLY VISIBILITY
+========================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if(document.hidden){
+
+            document
+                .querySelectorAll(".banner-slide")
+                .forEach(slide => {
+                    slide.style.transition = "none";
+                });
+
+        }else{
+
+            document
+                .querySelectorAll(".banner-slide")
+                .forEach(slide => {
+                    slide.style.transition = "";
+                });
+
+        }
+
+    }
+);
+
+</script>
